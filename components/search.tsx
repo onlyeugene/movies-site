@@ -14,7 +14,7 @@ const Search: React.FC<SearchProps> = ({
   placeholder = "Search..." 
 }) => {
   return (
-    <div className='relative'>
+    <div className='relative w-full sm:w-auto'>
       <input 
         type="search" 
         value={value}

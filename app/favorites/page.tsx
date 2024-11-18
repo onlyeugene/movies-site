@@ -16,13 +16,15 @@ const FavoritesPage = () => {
   }, []);
 
   return (
-    <div className="pt-28 w-full">
+    <div className="pt-20 sm:pt-24 md:pt-28 w-full">
       <Container>
-        <h1 className="text-4xl font-bold mb-8">My Favorite Movies</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 md:mb-8">
+          My Favorite Movies
+        </h1>
         {favorites.length === 0 ? (
-          <p>No favorite movies yet.</p>
+          <p className="text-base sm:text-lg">No favorite movies yet.</p>
         ) : (
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
             {favorites.map((movie) => (
               <Link href={`/movies/${movie.id}`} key={movie.id}>
                 <div className="cursor-pointer hover:opacity-80 transition relative">
@@ -31,12 +33,14 @@ const FavoritesPage = () => {
                     alt={movie.title}
                     width={500}
                     height={500}
-                    className="rounded-md shadow-lg"
+                    className="rounded-md shadow-lg w-full h-auto"
                   />
-                  <div className="absolute md:top-2 top-1 right-1 md:right-2">
+                  <div className="absolute top-1 right-1 sm:top-2 sm:right-2">
                     <HeartButton movie={movie} />
                   </div>
-                  <h2 className="text-xl font-semibold mt-2">{movie.title}</h2>
+                  <h2 className="text-sm sm:text-base md:text-xl font-semibold mt-1 sm:mt-2">
+                    {movie.title}
+                  </h2>
                 </div>
               </Link>
             ))}
