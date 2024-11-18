@@ -21,8 +21,8 @@ const MoviesList = () => {
 
   return (
     <Container>
-      <div className="flex justify-between items-center">
-        <h1 className="md:text-2xl text-lg font-bold mb-4">Popular Movies</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-4">
+        <h1 className="text-xl md:text-2xl font-bold">Popular Movies</h1>
         <Search
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -34,32 +34,35 @@ const MoviesList = () => {
           <PulseLoader color="#36d7b7" size={15} />
         </div>
       ) : (
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full mt-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
           {filteredMovies.map((movie) => (
             <div
               key={movie.id}
-              className="border rounded-lg shadow-sm relative"
+              className="border rounded-lg shadow-sm relative flex flex-col"
             >
-             <Image
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                width={300}
-                height={450}
-                className="rounded-t-md object-cover w-full h-auto"
-                onClick={() => router.push(`/movies/${movie.id}`)}
-              />
-              <div className="absolute top-2 right-2">
-                <HeartButton movie={movie} />
+              <div className="relative aspect-[2/3] w-full">
+                <Image
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  fill
+                  className="rounded-t-lg object-cover cursor-pointer"
+                  onClick={() => router.push(`/movies/${movie.id}`)}
+                />
+                <div className="absolute top-2 right-2">
+                  <HeartButton movie={movie} />
+                </div>
               </div>
-              <h1 className="p-3 text-lg font-medium truncate">
-                {movie.title}
-              </h1>
-              <div className="flex justify-between p-3">
-                <h2>{movie.release_date}</h2>
-                <h3 className="flex items-center gap-1">
-                  {movie.vote_average}{" "}
-                  <LiaStarSolid size={20} style={{ color: "gold" }} />
-                </h3>
+              <div className="flex flex-col flex-grow p-3">
+                <h2 className="text-lg font-medium truncate">
+                  {movie.title}
+                </h2>
+                <div className="flex justify-between mt-2">
+                  <p className="text-sm text-gray-600">{movie.release_date}</p>
+                  <p className="flex items-center gap-1 text-sm">
+                    {movie.vote_average}{" "}
+                    <LiaStarSolid size={18} style={{ color: "gold" }} />
+                  </p>
+                </div>
               </div>
             </div>
           ))}

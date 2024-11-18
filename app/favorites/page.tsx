@@ -27,20 +27,26 @@ const FavoritesPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
             {favorites.map((movie) => (
               <Link href={`/movies/${movie.id}`} key={movie.id}>
-                <div className="cursor-pointer hover:opacity-80 transition relative">
+                <div className="group cursor-pointer hover:opacity-80 transition relative border rounded-md shadow-lg">
                   <Image
                     src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                     alt={movie.title}
                     width={500}
                     height={500}
-                    className="rounded-md shadow-lg w-full h-auto"
+                    className="rounded-t-md shadow-lg w-full h-auto"
                   />
                   <div className="absolute top-1 right-1 sm:top-2 sm:right-2">
                     <HeartButton movie={movie} />
                   </div>
-                  <h2 className="text-sm sm:text-base md:text-xl font-semibold mt-1 sm:mt-2">
+                  <h2 className="text-sm sm:text-base md:text-xl font-semibold mt-1 sm:mt-2 p-2">
                     {movie.title}
                   </h2>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute inset-0 bg-black/75 rounded-md p-4 text-white overflow-y-auto">
+                    <h1 className="text-lg font-bold">
+                      Rating: {movie.vote_average}{" "}
+                    </h1>
+                    <p className="text-sm">{movie.overview}</p>
+                  </div>
                 </div>
               </Link>
             ))}
