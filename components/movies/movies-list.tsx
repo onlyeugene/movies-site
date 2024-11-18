@@ -16,8 +16,16 @@ const MoviesList = () => {
   const { movies, isLoading, error } = useMovies();
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const moviesPerPage = 12;
 
   const filteredMovies = filterMoviesByTitle(movies, searchTerm);
+  const totalPages = Math.ceil(filteredMovies.length / moviesPerPage);
+  
+  const paginatedMovies = filteredMovies.slice(
+    (currentPage - 1) * moviesPerPage,
+    currentPage * moviesPerPage
+  );
 
   return (
     <Container>
@@ -34,39 +42,62 @@ const MoviesList = () => {
           <PulseLoader color="#36d7b7" size={15} />
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
-          {filteredMovies.map((movie) => (
-            <div
-              key={movie.id}
-              className="border rounded-lg shadow-sm relative flex flex-col"
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
+            {paginatedMovies.map((movie) => (
+              <div
+                key={movie.id}
+                className="border rounded-lg shadow-sm relative flex flex-col"
+              >
+                <div className="relative aspect-[2/3] w-full">
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={movie.title}
+                    fill
+                    className="rounded-t-lg object-cover cursor-pointer"
+                    onClick={() => router.push(`/movies/${movie.id}`)}
+                  />
+                  <div className="absolute top-2 right-2">
+                    <HeartButton movie={movie} />
+                  </div>
+                </div>
+                <div className="flex flex-col flex-grow p-3">
+                  <h2 className="text-lg font-medium truncate">
+                    {movie.title}
+                  </h2>
+                  <div className="flex justify-between mt-2">
+                    <p className="text-sm text-gray-600">{movie.release_date}</p>
+                    <p className="flex items-center gap-1 text-sm">
+                      {movie.vote_average}{" "}
+                      <LiaStarSolid size={18} style={{ color: "gold" }} />
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Pagination Controls */}
+          <div className="flex justify-center items-center gap-2 mt-8">
+            <button
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="px-4 py-2 border rounded-md disabled:opacity-50"
             >
-              <div className="relative aspect-[2/3] w-full">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                  fill
-                  className="rounded-t-lg object-cover cursor-pointer"
-                  onClick={() => router.push(`/movies/${movie.id}`)}
-                />
-                <div className="absolute top-2 right-2">
-                  <HeartButton movie={movie} />
-                </div>
-              </div>
-              <div className="flex flex-col flex-grow p-3">
-                <h2 className="text-lg font-medium truncate">
-                  {movie.title}
-                </h2>
-                <div className="flex justify-between mt-2">
-                  <p className="text-sm text-gray-600">{movie.release_date}</p>
-                  <p className="flex items-center gap-1 text-sm">
-                    {movie.vote_average}{" "}
-                    <LiaStarSolid size={18} style={{ color: "gold" }} />
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              Previous
+            </button>
+            <span className="mx-4">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 border rounded-md disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        </>
       )}
     </Container>
   );
