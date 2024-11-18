@@ -13,7 +13,7 @@ export const useMovie = (movieId: string) => {
           `https://api.themoviedb.org/3/movie/${movieId}`,
           {
             params: {
-              api_key: "cbf7d6c36085bc7248cd3335ac20c4c3",
+              api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY,
             },
           }
         );

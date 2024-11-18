@@ -21,8 +21,8 @@ const MoviesList = () => {
 
   return (
     <Container>
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4">
-        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Popular Movies</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="md:text-2xl text-lg font-bold mb-4">Popular Movies</h1>
         <Search
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -34,35 +34,32 @@ const MoviesList = () => {
           <PulseLoader color="#36d7b7" size={15} />
         </div>
       ) : (
-        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 w-full">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full mt-5">
           {filteredMovies.map((movie) => (
             <div
               key={movie.id}
-              className="border rounded-lg shadow-sm relative flex flex-col h-full"
+              className="border rounded-lg shadow-sm relative"
             >
-              <div className="relative aspect-[2/3] w-full">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                  fill
-                  className="rounded-t-lg object-cover cursor-pointer"
-                  onClick={() => router.push(`/movies/${movie.id}`)}
-                />
-                <div className="absolute top-2 right-2">
-                  <HeartButton movie={movie} />
-                </div>
+             <Image
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+                width={300}
+                height={450}
+                className="rounded-t-md object-cover w-full h-auto"
+                onClick={() => router.push(`/movies/${movie.id}`)}
+              />
+              <div className="absolute top-2 right-2">
+                <HeartButton movie={movie} />
               </div>
-              <div className="p-2 sm:p-3 flex flex-col flex-grow">
-                <h1 className="text-base sm:text-lg font-medium truncate">
-                  {movie.title}
-                </h1>
-                <div className="flex justify-between items-center mt-2 text-sm sm:text-base">
-                  <h2>{movie.release_date}</h2>
-                  <h3 className="flex items-center gap-1">
-                    {movie.vote_average}{" "}
-                    <LiaStarSolid size={18} style={{ color: "gold" }} />
-                  </h3>
-                </div>
+              <h1 className="p-3 text-lg font-medium truncate">
+                {movie.title}
+              </h1>
+              <div className="flex justify-between p-3">
+                <h2>{movie.release_date}</h2>
+                <h3 className="flex items-center gap-1">
+                  {movie.vote_average}{" "}
+                  <LiaStarSolid size={20} style={{ color: "gold" }} />
+                </h3>
               </div>
             </div>
           ))}
