@@ -17,7 +17,7 @@ const MoviesList = () => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const moviesPerPage = 12;
+  const moviesPerPage = 8;
 
   const filteredMovies = filterMoviesByTitle(movies, searchTerm);
   const totalPages = Math.ceil(filteredMovies.length / moviesPerPage);
@@ -43,7 +43,7 @@ const MoviesList = () => {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
             {paginatedMovies.map((movie) => (
               <div
                 key={movie.id}
