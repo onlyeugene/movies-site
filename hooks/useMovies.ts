@@ -20,7 +20,7 @@ export const useMovies = (): UseMoviesProps => {
       try {
         const response = await axios.get('https://api.themoviedb.org/3/movie/popular', {
           params: {
-            api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY,
+            api_key: process.env.API_KEY,
           },
         });
         setMovies(response.data.results);
