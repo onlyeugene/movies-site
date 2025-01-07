@@ -71,6 +71,7 @@ const MoviesList = () => {
                       {movie.vote_average}{" "}
                       <LiaStarSolid size={18} style={{ color: "gold" }} />
                     </p>
+                    {/* <h4>{movie.popularity}</h4> */}
                   </div>
                 </div>
               </div>

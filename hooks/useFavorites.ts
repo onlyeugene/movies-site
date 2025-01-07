@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
-interface Movie {
+interface MovieProps {
   id: number;
   title: string;
   poster_path: string;
   overview: string;
 }
 
-export const useFavorites = (movie: Movie | null) => {
+export const useFavorites = (movie: MovieProps | null) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export const useFavorites = (movie: Movie | null) => {
       localStorage.getItem("favoriteMovies") || "[]"
     );
     if (movie) {
-      setIsFavorite(favorites.some((fav: Movie) => fav.id === movie.id));
+      setIsFavorite(favorites.some((fav: MovieProps) => fav.id === movie.id));
     }
   }, [movie]);
 
@@ -29,7 +29,7 @@ export const useFavorites = (movie: Movie | null) => {
     if (isFavorite && movie) {
       // Remove from favorites
       const updatedFavorites = favorites.filter(
-        (fav: Movie) => fav.id !== movie.id
+        (fav: MovieProps) => fav.id !== movie.id
       );
       localStorage.setItem("favoriteMovies", JSON.stringify(updatedFavorites));
       setIsFavorite(false);
@@ -51,7 +51,7 @@ export const useFavorites = (movie: Movie | null) => {
     }
   };
 
-  const getFavorites = (): Movie[] => {
+  const getFavorites = (): MovieProps[] => {
     return JSON.parse(localStorage.getItem("favoriteMovies") || "[]");
   };
 

@@ -1,12 +1,9 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { PulseLoader } from "react-spinners";
 import Container from "@/components/container";
 import Image from "next/image";
-import { toast } from "sonner";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useMovie } from "@/hooks/useMovieId";
 
