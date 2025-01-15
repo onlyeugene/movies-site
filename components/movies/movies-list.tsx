@@ -4,7 +4,7 @@ import { useMovies } from "@/hooks/useMovies";
 import Image from "next/image";
 import Container from "../container";
 import { PulseLoader } from "react-spinners";
-// import { SlStar } from "react-icons/sl";
+import { SlStar } from "react-icons/sl";
 import { LiaStarSolid } from "react-icons/lia";
 import HeartButton from "../heart-button";
 import { useRouter } from "next/navigation";
