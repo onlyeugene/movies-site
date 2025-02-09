@@ -3,7 +3,7 @@ import React from 'react'
 
 const Favorites = () => {
   return (
-  //  <Link href="/favorites">Favorites</Link>
+   <Link href="/favorites">Favorites</Link>
   )
 }
 
